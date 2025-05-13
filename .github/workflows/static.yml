@@ -51,6 +51,7 @@ jobs:
             xetex
             ximera
             tex4ht
+            enumitem
       # 3. Find & build each .tex
       - name: Compile all .tex files
         run: |
