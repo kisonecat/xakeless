@@ -1,0 +1,71 @@
+name: Build .html files from .tex files
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  # Single deploy job since we're just deploying
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup TeXLive
+        uses: teatimeguest/setup-texlive-action@v3
+        with:
+          packages: >-
+            scheme-basic
+            fontspec
+            xetex
+            pgf
+            geometry
+            soul
+            xcolor
+            titlesec
+            fancyhdr
+            etoolbox
+            amsmath
+      # 3. Find & build each .tex
+      - name: Compile all .tex files
+        run: |
+          set -euo pipefail
+          find . -type f -name '*.tex' | while IFS= read -r file; do
+            dir=$(dirname "$file")
+            base=$(basename "$file")
+            pushd "$dir" >/dev/null
+            pdflatex -file-line-error -shell-escape "\\PassOptionsToClass{tikzexport}{ximera}\\PassOptionsToClass{xake}{ximera}\\PassOptionsToClass{xake}{xourse}\\nonstopmode\\input{$base}"
+            pdflatex -file-line-error -shell-escape "\\PassOptionsToClass{tikzexport}{ximera}\\PassOptionsToClass{xake}{ximera}\\PassOptionsToClass{xake}{xourse}\\nonstopmode\\input{$base}"
+            make4ht -s -c ximera -f html5+dvisvgm_hashes -u  -a debug $base "svg,htex4ht,mathjax,-css,info,tikz+" "" "" "--interaction=nonstopmode -shell-escape -file-line-error" 
+            make4ht -s -c ximera -f html5+dvisvgm_hashes -u  -a debug $base "svg,htex4ht,mathjax,-css,info,tikz+" "" "" "--interaction=nonstopmode -shell-escape -file-line-error" 
+            popd >/dev/null
+          done
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload entire repository
+          path: '.'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
