@@ -44,6 +44,7 @@ jobs:
             fancyhdr
             etoolbox
             amsmath
+            ximera
       # 3. Find & build each .tex
       - name: Compile all .tex files
         run: |
