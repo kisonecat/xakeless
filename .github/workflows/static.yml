@@ -83,6 +83,7 @@ jobs:
             ifmtarg
             make4ht
             lualatex
+            luaxml
       # 3. Find & build each .tex
       - name: Compile all .tex files
         run: |
