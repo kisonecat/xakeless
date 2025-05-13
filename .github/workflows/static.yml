@@ -52,6 +52,7 @@ jobs:
             ximera
             tex4ht
             enumitem
+            titling
       # 3. Find & build each .tex
       - name: Compile all .tex files
         run: |
