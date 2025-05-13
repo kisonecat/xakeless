@@ -34,17 +34,23 @@ jobs:
         with:
           packages: >-
             scheme-basic
-            fontspec
-            xetex
-            pgf
-            geometry
-            soul
-            xcolor
-            titlesec
-            fancyhdr
-            etoolbox
             amsmath
+            cancel
+            etoolbox
+            fancyhdr
+            fontenc
+            fontspec
+            geometry
+            hyperref
+            microtype
+            pgf
+            sagetex
+            soul
+            titlesec
+            xcolor
+            xetex
             ximera
+            tex4ht
       # 3. Find & build each .tex
       - name: Compile all .tex files
         run: |
