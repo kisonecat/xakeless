@@ -94,8 +94,8 @@ jobs:
             pushd "$dir" >/dev/null
             pdflatex -file-line-error -shell-escape "\\PassOptionsToClass{tikzexport}{ximera}\\PassOptionsToClass{xake}{ximera}\\PassOptionsToClass{xake}{xourse}\\nonstopmode\\input{$base}"
             pdflatex -file-line-error -shell-escape "\\PassOptionsToClass{tikzexport}{ximera}\\PassOptionsToClass{xake}{ximera}\\PassOptionsToClass{xake}{xourse}\\nonstopmode\\input{$base}"
-            make4ht -s -c ximera -f html5+dvisvgm_hashes -u  -a debug $base "svg,htex4ht,mathjax,-css,info,tikz+" "" "" "--interaction=nonstopmode -shell-escape -file-line-error" 
-            make4ht -s -c ximera -f html5+dvisvgm_hashes -u  -a debug $base "svg,htex4ht,mathjax,-css,info,tikz+" "" "" "--interaction=nonstopmode -shell-escape -file-line-error" 
+            make4ht -s -c ximera -f html5+dvisvgm_hashes-common_domfilters -u  -a debug $base "svg,htex4ht,mathjax,-css,info,tikz+" "" "" "--interaction=nonstopmode -shell-escape -file-line-error" 
+            make4ht -s -c ximera -f html5+dvisvgm_hashes-common_domfilters -u  -a debug $base "svg,htex4ht,mathjax,-css,info,tikz+" "" "" "--interaction=nonstopmode -shell-escape -file-line-error" 
             popd >/dev/null
           done
 
