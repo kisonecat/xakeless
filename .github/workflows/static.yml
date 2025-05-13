@@ -35,25 +35,51 @@ jobs:
           packages: >-
             scheme-basic
             amsmath
+            amssymb
+            amsthm
             cancel
+            comment
+            enumitem
+            environ
+            epstopdf
             etoolbox
+            everyhook
             fancyhdr
+            fancyvrb
             fontenc
             fontspec
+            forloop
             geometry
+            gettitlestring
+            graphicx
             hyperref
+            ifpdf
+            ifthen
+            listings
             microtype
+            morewrites
+            multido
+            nameref
             pgf
+            pgfplots
+            randomize
             sagetex
+            shuffle
             soul
+            tcolorbox
+            tex4ht
+            tikz
             titlesec
+            titletoc
+            titling
+            url
+            verbatim
             xcolor
             xetex
+            xifthen
             ximera
-            tex4ht
-            enumitem
-            titling
-            pgfplots
+            xkeyval
+            xparse
       # 3. Find & build each .tex
       - name: Compile all .tex files
         run: |
